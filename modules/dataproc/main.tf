@@ -44,6 +44,15 @@ resource "google_storage_bucket" "dataproc_staging" {
       age = 7
     }
   }
+  lifecycle_rule {
+    action {
+      type          = "SetStorageClass"
+      storage_class = "NEARLINE"
+    }
+    condition {
+      age = 30
+    }
+  }
 
   versioning {
     enabled = true
@@ -69,7 +78,17 @@ resource "google_storage_bucket" "dataproc_temp" {
   versioning {
     enabled = true
   }
+  lifecycle_rule {
+    action {
+      type          = "SetStorageClass"
+      storage_class = "NEARLINE"
+    }
+    condition {
+      age = 30
+    }
+  }
 }
+
 
 resource "google_storage_bucket_iam_member" "staging_bucket_iam" {
   bucket = google_storage_bucket.dataproc_staging.name

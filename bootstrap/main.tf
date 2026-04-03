@@ -94,6 +94,15 @@ resource "google_storage_bucket" "tbd-state-bucket" {
     }
   }
 
+  lifecycle_rule {
+    action {
+      type = "Delete"
+    }
+    condition {
+      age = 30
+    }
+  }
+
   #checkov:skip=CKV_GCP_62: "Bucket should log access"
   #checkov:skip=CKV_GCP_29: "Ensure that Cloud Storage buckets have uniform bucket-level access enabled"
   #checkov:skip=CKV_GCP_78: "Ensure Cloud storage has versioning enabled"

@@ -16,6 +16,15 @@ resource "google_storage_bucket" "tbd-code-bucket" {
       age = 7
     }
   }
+  lifecycle_rule {
+    action {
+      type          = "SetStorageClass"
+      storage_class = "NEARLINE"
+    }
+    condition {
+      age = 30
+    }
+  }
 
   #checkov:skip=CKV_GCP_62: "Bucket should log access"
   #checkov:skip=CKV_GCP_29: "Ensure that Cloud Storage buckets have uniform bucket-level access enabled"
@@ -53,6 +62,16 @@ resource "google_storage_bucket" "tbd-data-bucket" {
     }
     condition {
       age = 7
+    }
+  }
+
+  lifecycle_rule {
+    action {
+      type          = "SetStorageClass"
+      storage_class = "NEARLINE"
+    }
+    condition {
+      age = 30
     }
   }
 }
