@@ -36,6 +36,23 @@ resource "google_storage_bucket" "dataproc_staging" {
   force_destroy               = true
   uniform_bucket_level_access = true
   public_access_prevention    = "enforced"
+  lifecycle_rule {
+    action {
+      type = "AbortIncompleteMultipartUpload"
+    }
+    condition {
+      age = 7
+    }
+  }
+  lifecycle_rule {
+    action {
+      type          = "SetStorageClass"
+      storage_class = "NEARLINE"
+    }
+    condition {
+      age = 30
+    }
+  }
 
   versioning {
     enabled = true
@@ -50,10 +67,28 @@ resource "google_storage_bucket" "dataproc_temp" {
   uniform_bucket_level_access = true
   public_access_prevention    = "enforced"
 
+  lifecycle_rule {
+    action {
+      type = "AbortIncompleteMultipartUpload"
+    }
+    condition {
+      age = 7
+    }
+  }
   versioning {
     enabled = true
   }
+  lifecycle_rule {
+    action {
+      type          = "SetStorageClass"
+      storage_class = "NEARLINE"
+    }
+    condition {
+      age = 30
+    }
+  }
 }
+
 
 resource "google_storage_bucket_iam_member" "staging_bucket_iam" {
   bucket = google_storage_bucket.dataproc_staging.name
