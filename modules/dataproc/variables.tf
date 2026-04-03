@@ -1,6 +1,7 @@
 variable "project_name" {
   type        = string
   description = "Project name"
+  default     = "tbd-2026l-325144"
 }
 
 variable "region" {
@@ -12,6 +13,7 @@ variable "region" {
 variable "subnet" {
   type        = string
   description = "VPC subnet used for deployment"
+  default     = "subnet"
 }
 
 variable "machine_type" {
