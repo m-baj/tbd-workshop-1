@@ -33,9 +33,25 @@ module "cloud-router" {
     name = "nat-gateway"
   }]
 }
+
+resource "google_compute_router_nat" "nat" {
+  name                               = "tbd-nat"
+  router                             = "nat-router"
+  region                             = var.region
+  project                            = var.project_name
+  nat_ip_allocate_option             = "AUTO_ONLY"
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+
+  log_config {
+    enable = true
+    filter = "ERRORS_ONLY"
+  }
+}
+
 #Enables IAP tunneling
 resource "google_compute_firewall" "fw-allow-ingress-from-iap" {
   name          = "fw-allow-ingress-iap"
+  project       = var.project_name
   network       = module.vpc.network_id
   priority      = 1000
   direction     = "INGRESS"
@@ -50,6 +66,7 @@ resource "google_compute_firewall" "fw-allow-ingress-from-iap" {
 
 resource "google_compute_firewall" "default-internal-allow-all" {
   #checkov:skip=CKV2_GCP_12: "Ensure GCP compute firewall ingress does not allow unrestricted access to all ports"
+  project       = var.project_name
   name          = "default-internal-allow-all"
   network       = module.vpc.network_id
   priority      = 65534

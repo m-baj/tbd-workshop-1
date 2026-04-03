@@ -3,6 +3,7 @@ resource "google_project_service" "dataproc" {
   provider           = google
   service            = "dataproc.googleapis.com"
   disable_on_destroy = true
+  project            = var.project_name
 }
 
 resource "google_service_account" "dataproc_sa" {

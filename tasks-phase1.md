@@ -57,9 +57,9 @@ IMPORTANT ❗ ❗ ❗ Please remember to destroy all the resources after each wo
 
 1. Authors:
 
-   ***enter your group nr***
+   - **group nr 3**
 
-   ***link to forked repo***
+   - **[https://github.com/m-baj/tbd-workshop-1](https://github.com/m-baj/tbd-workshop-1)**
 
 2. Follow all steps in README.md.
 
@@ -70,7 +70,7 @@ IMPORTANT ❗ ❗ ❗ Please remember to destroy all the resources after each wo
 
     2. Create PR from this branch to **YOUR** master and merge it to make new release.
 
-    ***place the screenshot from GA after successful application of release***
+    ![img.png](doc/figures/job-done.png)
 
 
 5. Analyze terraform code. Play with terraform plan, terraform graph to investigate different modules.
