@@ -75,7 +75,19 @@ IMPORTANT ❗ ❗ ❗ Please remember to destroy all the resources after each wo
 
 5. Analyze terraform code. Play with terraform plan, terraform graph to investigate different modules.
 
-    ***describe one selected module and put the output of terraform graph for this module here***
+![img.png](doc/figures/airflow-graph.png)
+### Module Description: `modules/airflow`
+
+The **Airflow** module is responsible for deploying a robust data orchestration platform based on **Google Kubernetes Engine (GKE)**. It serves as the "control center" for the entire Big Data ecosystem, managing the scheduling and execution of data pipelines.
+
+**Key features of the module:**
+
+* **Identity & Access Management (IAM):** The module creates a dedicated Service Account (`airflow_sa`) with least-privilege permissions, ensuring that the Kubernetes nodes only have the access necessary to interact with other GCP services.
+* **Infrastructure Scalability:** It defines both the GKE Control Plane and a separate Node Pool (`airflow_nodes`). This separation allows for granular control over machine types (e.g., CPU/RAM optimized) used for executing Spark jobs or Airflow DAGs.
+* **Security Hardening:** By implementing **Workload Identity**, **Shielded Nodes**, and **Binary Authorization**, the module ensures that only trusted containers are executed and that sensitive credentials are never stored as static JSON keys within the cluster.
+* **Network Integration:** The cluster is tightly integrated into the project's VPC, allowing for secure internal communication between Airflow workers and other components like Dataproc or Cloud Storage.
+
+---
 
 6. Reach YARN UI
 
