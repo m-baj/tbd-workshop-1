@@ -91,7 +91,16 @@ The **Airflow** module is responsible for deploying a robust data orchestration 
 
 6. Reach YARN UI
 
-   ***place the command you used for setting up the tunnel, the port and the screenshot of YARN UI here***
+```bash
+gcloud compute ssh tbd-cluster-m \
+    --project=tbd-2026l-325144 \
+    --zone=europe-west1-b \
+    --tunnel-through-iap \
+    -- -L 8088:localhost:8088
+```
+- port: 8088
+
+![img.png](doc/figures/yarnui.png)
 
    Hint: the Dataproc cluster has `internal_ip_only = true`, so you need to use an IAP tunnel.
    See: `gcloud compute ssh` with `-- -L <local_port>:localhost:<remote_port>` and `--tunnel-through-iap` flag.
