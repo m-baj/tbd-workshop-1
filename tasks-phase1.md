@@ -314,7 +314,7 @@ jobs:
 ```
 
 ***paste screenshot/log snippet confirming the auto-destroy ran***
-![img.png](doc/figures/autodestroy.png)
+![img.png](doc/figures/image.png)
 
 
 ***write one sentence why scheduling cleanup helps in this workshop***
