@@ -243,6 +243,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     }
     ```
 
+
 13. Triggered Terraform Destroy on Schedule or After PR Merge. Goal: make sure we never forget to clean up resources and burn money.
 
 Add a new GitHub Actions workflow that:
