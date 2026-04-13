@@ -76,8 +76,8 @@ jobs:
          # This will add both a CLI output to the console and create a results.sarif file
         output_format: cli,sarif
         output_file_path: console,results.sarif
-        config_file: .checkov.yaml
-        skip_path: gha-creds-*json
+        skip_check: CKV_SECRET_9,CKV_TF_1,CKV_GCP_41,CKV_GCP_49,CKV_GCP_74,CKV_GCP_29,CKV_GCP_62,CKV2_GCP_18,CKV_DOCKER_2,CKV_DOCKER_3
+        skip_path: "gha-creds-*.json"
 
     - name: Terraform Plan
       id: plan
@@ -155,6 +155,8 @@ jobs:
       run: |
         infracost breakdown --path="." \
                             --format=json \
+                            --usage-file=infracost-usage.yaml \
+                            --terraform-var-file env/project.tfvars \
                             --out-file=/tmp/infracost-base.json
     - name: Checkout PR branch
       uses: actions/checkout@v3
@@ -162,7 +164,9 @@ jobs:
       run: |
         infracost diff --path="." \
                         --format=json \
+                        --usage-file=infracost-usage.yaml \
                         --compare-to=/tmp/infracost-base.json \
+                        --terraform-var-file env/project.tfvars \
                         --out-file=/tmp/infracost.json
     - name: Post Infracost comment
       run: |
