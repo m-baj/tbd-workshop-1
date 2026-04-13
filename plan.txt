@@ -1,0 +1,1537 @@
+data.google_client_config.provider: Reading...
+data.google_client_config.provider: Read complete after 1s [id=projects/"tbd-2026l-325144"/regions/"europe-west1"/zones/<null>]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # google_compute_firewall.allow-internal-icmp will be created
+  + resource "google_compute_firewall" "allow-internal-icmp" {
+      + creation_timestamp = (known after apply)
+      + destination_ranges = (known after apply)
+      + direction          = (known after apply)
+      + enable_logging     = (known after apply)
+      + id                 = (known after apply)
+      + name               = "allow-internal-icmp"
+      + network            = "main-vpc"
+      + priority           = 1000
+      + project            = "tbd-2026l-325144"
+      + self_link          = (known after apply)
+      + source_ranges      = [
+          + "10.0.0.0/8",
+        ]
+
+      + allow {
+          + ports    = []
+          + protocol = "icmp"
+        }
+    }
+
+  # google_compute_firewall.allow-internal-tcp will be created
+  + resource "google_compute_firewall" "allow-internal-tcp" {
+      + creation_timestamp = (known after apply)
+      + destination_ranges = (known after apply)
+      + direction          = (known after apply)
+      + enable_logging     = (known after apply)
+      + id                 = (known after apply)
+      + name               = "allow-internal-tcp"
+      + network            = "main-vpc"
+      + priority           = 1000
+      + project            = "tbd-2026l-325144"
+      + self_link          = (known after apply)
+      + source_ranges      = [
+          + "10.0.0.0/8",
+        ]
+
+      + allow {
+          + ports    = []
+          + protocol = "tcp"
+        }
+    }
+
+  # google_compute_firewall.allow-internal-udp will be created
+  + resource "google_compute_firewall" "allow-internal-udp" {
+      + creation_timestamp = (known after apply)
+      + destination_ranges = (known after apply)
+      + direction          = (known after apply)
+      + enable_logging     = (known after apply)
+      + id                 = (known after apply)
+      + name               = "allow-internal-udp"
+      + network            = "main-vpc"
+      + priority           = 1000
+      + project            = "tbd-2026l-325144"
+      + self_link          = (known after apply)
+      + source_ranges      = [
+          + "10.0.0.0/8",
+        ]
+
+      + allow {
+          + ports    = []
+          + protocol = "udp"
+        }
+    }
+
+  # helm_release.airflow will be created
+  + resource "helm_release" "airflow" {
+      + atomic                     = false
+      + chart                      = "airflow"
+      + cleanup_on_fail            = false
+      + create_namespace           = false
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "airflow"
+      + namespace                  = "airflow"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://airflow.apache.org"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 900
+      + verify                     = false
+      + version                    = "1.16.0"
+      + wait                       = true
+      + wait_for_jobs              = false
+
+      + set {
+          + name  = "dags.gitSync.branch"
+          + value = "master"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "dags.gitSync.enabled"
+          + value = "true"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "dags.gitSync.repo"
+          + value = "https://github.com/m-baj/tbd-workshop-1.git"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "dags.gitSync.subPath"
+          + value = "modules/data-pipeline/resources"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "dags.gitSync.wait"
+          + value = "60"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "dags.persistence.enabled"
+          + value = "false"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "data.metadataConnection.db"
+          + value = "airflow"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "data.metadataConnection.host"
+          + value = "airflow-pg"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "data.metadataConnection.user"
+          + value = "postgres"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "env[0].name"
+          + value = "AIRFLOW_VAR_PROJECT_ID"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "env[0].value"
+          + value = "tbd-2026l-325144"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "env[1].name"
+          + value = "AIRFLOW_VAR_REGION_NAME"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "env[1].value"
+          + value = "europe-west1"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "env[2].name"
+          + value = "AIRFLOW_VAR_BUCKET_NAME"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "env[2].value"
+          + value = "tbd-2026l-325144-code"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "env[3].name"
+          + value = "AIRFLOW_VAR_PHS_CLUSTER"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "env[3].value"
+          + value = "tbd-cluster"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "executor"
+          + value = "LocalExecutor"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "postgresql.enabled"
+          + value = "false"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "scheduler.resources.requests.cpu"
+          + value = "250m"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "scheduler.resources.requests.memory"
+          + value = "512Mi"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "triggerer.resources.requests.cpu"
+          + value = "250m"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "triggerer.resources.requests.memory"
+          + value = "256Mi"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "webserver.resources.requests.cpu"
+          + value = "250m"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "webserver.resources.requests.memory"
+          + value = "512Mi"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "webserver.service.type"
+          + value = "LoadBalancer"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "webserver.startupProbe.failureThreshold"
+          + value = "12"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "webserver.startupProbe.periodSeconds"
+          + value = "15"
+            # (1 unchanged attribute hidden)
+        }
+
+      + set_sensitive {
+          # At least one attribute in this block is (or was) sensitive,
+          # so its contents will not be displayed.
+        }
+    }
+
+  # kubernetes_job.airflow_create_user will be created
+  + resource "kubernetes_job" "airflow_create_user" {
+      + id                  = (known after apply)
+      + wait_for_completion = true
+
+      + metadata {
+          + generation       = (known after apply)
+          + labels           = (known after apply)
+          + name             = "airflow-create-user"
+          + namespace        = "airflow"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+
+      + spec {
+          + backoff_limit   = 2
+          + completion_mode = (known after apply)
+          + completions     = 1
+          + parallelism     = 1
+
+          + selector (known after apply)
+
+          + template {
+              + metadata {
+                  + generation       = (known after apply)
+                  + name             = (known after apply)
+                  + resource_version = (known after apply)
+                  + uid              = (known after apply)
+                }
+              + spec {
+                  + automount_service_account_token  = true
+                  + dns_policy                       = "ClusterFirst"
+                  + enable_service_links             = true
+                  + host_ipc                         = false
+                  + host_network                     = false
+                  + host_pid                         = false
+                  + hostname                         = (known after apply)
+                  + node_name                        = (known after apply)
+                  + restart_policy                   = "Never"
+                  + scheduler_name                   = (known after apply)
+                  + service_account_name             = (known after apply)
+                  + share_process_namespace          = false
+                  + termination_grace_period_seconds = 30
+
+                  + container {
+                      + command                    = [
+                          + "airflow",
+                          + "users",
+                          + "create",
+                          + "--username",
+                          + "admin",
+                          + "--password",
+                          + (sensitive value),
+                          + "--firstname",
+                          + "Admin",
+                          + "--lastname",
+                          + "User",
+                          + "--role",
+                          + "Admin",
+                          + "--email",
+                          + "admin@example.com",
+                        ]
+                      + image                      = "apache/airflow:2.10.5"
+                      + image_pull_policy          = (known after apply)
+                      + name                       = "create-user"
+                      + stdin                      = false
+                      + stdin_once                 = false
+                      + termination_message_path   = "/dev/termination-log"
+                      + termination_message_policy = (known after apply)
+                      + tty                        = false
+
+                      + env {
+                          + name  = "AIRFLOW__DATABASE__SQL_ALCHEMY_CONN"
+                          + value = (sensitive value)
+                        }
+
+                      + resources (known after apply)
+                    }
+
+                  + image_pull_secrets (known after apply)
+
+                  + readiness_gate (known after apply)
+                }
+            }
+        }
+
+      + timeouts {
+          + create = "5m"
+        }
+    }
+
+  # kubernetes_job.airflow_db_migrate will be created
+  + resource "kubernetes_job" "airflow_db_migrate" {
+      + id                  = (known after apply)
+      + wait_for_completion = true
+
+      + metadata {
+          + generation       = (known after apply)
+          + labels           = (known after apply)
+          + name             = "airflow-db-migrate"
+          + namespace        = "airflow"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+
+      + spec {
+          + backoff_limit   = 2
+          + completion_mode = (known after apply)
+          + completions     = 1
+          + parallelism     = 1
+
+          + selector (known after apply)
+
+          + template {
+              + metadata {
+                  + generation       = (known after apply)
+                  + name             = (known after apply)
+                  + resource_version = (known after apply)
+                  + uid              = (known after apply)
+                }
+              + spec {
+                  + automount_service_account_token  = true
+                  + dns_policy                       = "ClusterFirst"
+                  + enable_service_links             = true
+                  + host_ipc                         = false
+                  + host_network                     = false
+                  + host_pid                         = false
+                  + hostname                         = (known after apply)
+                  + node_name                        = (known after apply)
+                  + restart_policy                   = "Never"
+                  + scheduler_name                   = (known after apply)
+                  + service_account_name             = (known after apply)
+                  + share_process_namespace          = false
+                  + termination_grace_period_seconds = 30
+
+                  + container {
+                      + command                    = [
+                          + "airflow",
+                          + "db",
+                          + "migrate",
+                        ]
+                      + image                      = "apache/airflow:2.10.5"
+                      + image_pull_policy          = (known after apply)
+                      + name                       = "migrate"
+                      + stdin                      = false
+                      + stdin_once                 = false
+                      + termination_message_path   = "/dev/termination-log"
+                      + termination_message_policy = (known after apply)
+                      + tty                        = false
+
+                      + env {
+                          + name  = "AIRFLOW__DATABASE__SQL_ALCHEMY_CONN"
+                          + value = (sensitive value)
+                        }
+
+                      + resources (known after apply)
+                    }
+
+                  + image_pull_secrets (known after apply)
+
+                  + readiness_gate (known after apply)
+                }
+            }
+        }
+
+      + timeouts {
+          + create = "5m"
+        }
+    }
+
+  # kubernetes_job.airflow_gcp_connection will be created
+  + resource "kubernetes_job" "airflow_gcp_connection" {
+      + id                  = (known after apply)
+      + wait_for_completion = true
+
+      + metadata {
+          + generation       = (known after apply)
+          + labels           = (known after apply)
+          + name             = "airflow-gcp-connection"
+          + namespace        = "airflow"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+
+      + spec {
+          + backoff_limit   = 2
+          + completion_mode = (known after apply)
+          + completions     = 1
+          + parallelism     = 1
+
+          + selector (known after apply)
+
+          + template {
+              + metadata {
+                  + generation       = (known after apply)
+                  + name             = (known after apply)
+                  + resource_version = (known after apply)
+                  + uid              = (known after apply)
+                }
+              + spec {
+                  + automount_service_account_token  = true
+                  + dns_policy                       = "ClusterFirst"
+                  + enable_service_links             = true
+                  + host_ipc                         = false
+                  + host_network                     = false
+                  + host_pid                         = false
+                  + hostname                         = (known after apply)
+                  + node_name                        = (known after apply)
+                  + restart_policy                   = "Never"
+                  + scheduler_name                   = (known after apply)
+                  + service_account_name             = (known after apply)
+                  + share_process_namespace          = false
+                  + termination_grace_period_seconds = 30
+
+                  + container {
+                      + command                    = [
+                          + "airflow",
+                          + "connections",
+                          + "add",
+                          + "google_cloud_default",
+                          + "--conn-type",
+                          + "google_cloud_platform",
+                          + "--conn-extra",
+                          + jsonencode(
+                                {
+                                  + project = "tbd-2026l-325144"
+                                }
+                            ),
+                        ]
+                      + image                      = "apache/airflow:2.10.5"
+                      + image_pull_policy          = (known after apply)
+                      + name                       = "create-connection"
+                      + stdin                      = false
+                      + stdin_once                 = false
+                      + termination_message_path   = "/dev/termination-log"
+                      + termination_message_policy = (known after apply)
+                      + tty                        = false
+
+                      + env {
+                          + name  = "AIRFLOW__DATABASE__SQL_ALCHEMY_CONN"
+                          + value = (sensitive value)
+                        }
+
+                      + resources (known after apply)
+                    }
+
+                  + image_pull_secrets (known after apply)
+
+                  + readiness_gate (known after apply)
+                }
+            }
+        }
+
+      + timeouts {
+          + create = "5m"
+        }
+    }
+
+  # kubernetes_namespace.airflow will be created
+  + resource "kubernetes_namespace" "airflow" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "airflow"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # kubernetes_service.airflow_pg will be created
+  + resource "kubernetes_service" "airflow_pg" {
+      + id                     = (known after apply)
+      + status                 = (known after apply)
+      + wait_for_load_balancer = true
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "airflow-pg"
+          + namespace        = "airflow"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+
+      + spec {
+          + allocate_load_balancer_node_ports = true
+          + cluster_ip                        = (known after apply)
+          + cluster_ips                       = (known after apply)
+          + external_traffic_policy           = (known after apply)
+          + health_check_node_port            = (known after apply)
+          + internal_traffic_policy           = (known after apply)
+          + ip_families                       = (known after apply)
+          + ip_family_policy                  = (known after apply)
+          + publish_not_ready_addresses       = false
+          + selector                          = {
+              + "app" = "airflow-pg"
+            }
+          + session_affinity                  = "None"
+          + type                              = "ClusterIP"
+
+          + port {
+              + node_port   = (known after apply)
+              + port        = 5432
+              + protocol    = "TCP"
+              + target_port = "5432"
+            }
+
+          + session_affinity_config (known after apply)
+        }
+    }
+
+  # kubernetes_stateful_set.airflow_pg will be created
+  + resource "kubernetes_stateful_set" "airflow_pg" {
+      + id               = (known after apply)
+      + wait_for_rollout = true
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "airflow-pg"
+          + namespace        = "airflow"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+
+      + spec {
+          + pod_management_policy  = (known after apply)
+          + replicas               = "1"
+          + revision_history_limit = (known after apply)
+          + service_name           = "airflow-pg"
+
+          + selector {
+              + match_labels = {
+                  + "app" = "airflow-pg"
+                }
+            }
+
+          + template {
+              + metadata {
+                  + generation       = (known after apply)
+                  + labels           = {
+                      + "app" = "airflow-pg"
+                    }
+                  + name             = (known after apply)
+                  + resource_version = (known after apply)
+                  + uid              = (known after apply)
+                }
+              + spec {
+                  + automount_service_account_token  = true
+                  + dns_policy                       = "ClusterFirst"
+                  + enable_service_links             = true
+                  + host_ipc                         = false
+                  + host_network                     = false
+                  + host_pid                         = false
+                  + hostname                         = (known after apply)
+                  + node_name                        = (known after apply)
+                  + restart_policy                   = "Always"
+                  + scheduler_name                   = (known after apply)
+                  + service_account_name             = (known after apply)
+                  + share_process_namespace          = false
+                  + termination_grace_period_seconds = 30
+
+                  + container {
+                      + image                      = "postgres:16-alpine"
+                      + image_pull_policy          = (known after apply)
+                      + name                       = "postgres"
+                      + stdin                      = false
+                      + stdin_once                 = false
+                      + termination_message_path   = "/dev/termination-log"
+                      + termination_message_policy = (known after apply)
+                      + tty                        = false
+
+                      + env {
+                          + name  = "POSTGRES_DB"
+                          + value = "airflow"
+                        }
+                      + env {
+                          + name  = "POSTGRES_USER"
+                          + value = "postgres"
+                        }
+                      + env {
+                          + name  = "POSTGRES_PASSWORD"
+                          + value = (sensitive value)
+                        }
+                      + env {
+                          + name  = "PGDATA"
+                          + value = "/var/lib/postgresql/data/pgdata"
+                        }
+
+                      + port {
+                          + container_port = 5432
+                          + protocol       = "TCP"
+                        }
+
+                      + resources (known after apply)
+
+                      + volume_mount {
+                          + mount_path        = "/var/lib/postgresql/data"
+                          + mount_propagation = "None"
+                          + name              = "pg-data"
+                          + read_only         = false
+                        }
+                    }
+
+                  + image_pull_secrets (known after apply)
+
+                  + readiness_gate (known after apply)
+                }
+            }
+
+          + volume_claim_template {
+              + metadata {
+                  + generation       = (known after apply)
+                  + name             = "pg-data"
+                  + namespace        = "default"
+                  + resource_version = (known after apply)
+                  + uid              = (known after apply)
+                }
+              + spec {
+                  + access_modes       = [
+                      + "ReadWriteOnce",
+                    ]
+                  + storage_class_name = (known after apply)
+                  + volume_name        = (known after apply)
+
+                  + resources {
+                      + requests = {
+                          + "storage" = "5Gi"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+  # module.airflow.google_container_cluster.airflow will be created
+  + resource "google_container_cluster" "airflow" {
+      + cluster_ipv4_cidr                        = (known after apply)
+      + datapath_provider                        = (known after apply)
+      + default_max_pods_per_node                = (known after apply)
+      + deletion_protection                      = false
+      + enable_cilium_clusterwide_network_policy = false
+      + enable_intranode_visibility              = true
+      + enable_kubernetes_alpha                  = false
+      + enable_l4_ilb_subsetting                 = false
+      + enable_legacy_abac                       = false
+      + enable_multi_networking                  = false
+      + enable_shielded_nodes                    = true
+      + endpoint                                 = (known after apply)
+      + id                                       = (known after apply)
+      + initial_node_count                       = 1
+      + label_fingerprint                        = (known after apply)
+      + location                                 = "europe-west1-b"
+      + logging_service                          = (known after apply)
+      + master_version                           = (known after apply)
+      + monitoring_service                       = (known after apply)
+      + name                                     = "airflow-cluster"
+      + network                                  = "main-vpc"
+      + networking_mode                          = (known after apply)
+      + node_locations                           = (known after apply)
+      + node_version                             = (known after apply)
+      + operation                                = (known after apply)
+      + private_ipv6_google_access               = (known after apply)
+      + project                                  = "tbd-2026l-325144"
+      + remove_default_node_pool                 = true
+      + resource_labels                          = {
+          + "environment" = "workshop"
+        }
+      + self_link                                = (known after apply)
+      + services_ipv4_cidr                       = (known after apply)
+      + subnetwork                               = (known after apply)
+      + tpu_ipv4_cidr_block                      = (known after apply)
+
+      + addons_config (known after apply)
+
+      + authenticator_groups_config (known after apply)
+
+      + binary_authorization {
+          + evaluation_mode = "PROJECT_SINGLETON_POLICY_ENFORCE"
+        }
+
+      + cluster_autoscaling (known after apply)
+
+      + confidential_nodes (known after apply)
+
+      + cost_management_config (known after apply)
+
+      + database_encryption (known after apply)
+
+      + default_snat_status (known after apply)
+
+      + gateway_api_config (known after apply)
+
+      + identity_service_config (known after apply)
+
+      + ip_allocation_policy (known after apply)
+
+      + logging_config (known after apply)
+
+      + master_auth {
+          + client_certificate     = (known after apply)
+          + client_key             = (sensitive value)
+          + cluster_ca_certificate = (known after apply)
+
+          + client_certificate_config {
+              + issue_client_certificate = false
+            }
+        }
+
+      + master_authorized_networks_config (known after apply)
+
+      + mesh_certificates (known after apply)
+
+      + monitoring_config (known after apply)
+
+      + node_config (known after apply)
+
+      + node_pool (known after apply)
+
+      + node_pool_auto_config (known after apply)
+
+      + node_pool_defaults (known after apply)
+
+      + notification_config (known after apply)
+
+      + release_channel {
+          + channel = "REGULAR"
+        }
+
+      + security_posture_config (known after apply)
+
+      + service_external_ips_config (known after apply)
+
+      + vertical_pod_autoscaling (known after apply)
+
+      + workload_identity_config {
+          + workload_pool = "tbd-2026l-325144.svc.id.goog"
+        }
+    }
+
+  # module.airflow.google_container_node_pool.airflow_nodes will be created
+  + resource "google_container_node_pool" "airflow_nodes" {
+      + cluster                     = "airflow-cluster"
+      + id                          = (known after apply)
+      + initial_node_count          = (known after apply)
+      + instance_group_urls         = (known after apply)
+      + location                    = "europe-west1-b"
+      + managed_instance_group_urls = (known after apply)
+      + max_pods_per_node           = (known after apply)
+      + name                        = "airflow-pool"
+      + name_prefix                 = (known after apply)
+      + node_count                  = 2
+      + node_locations              = (known after apply)
+      + operation                   = (known after apply)
+      + project                     = "tbd-2026l-325144"
+      + version                     = (known after apply)
+
+      + management {
+          + auto_repair  = true
+          + auto_upgrade = true
+        }
+
+      + network_config (known after apply)
+
+      + node_config {
+          + disk_size_gb      = 50
+          + disk_type         = "pd-standard"
+          + effective_taints  = (known after apply)
+          + guest_accelerator = (known after apply)
+          + image_type        = (known after apply)
+          + labels            = (known after apply)
+          + local_ssd_count   = (known after apply)
+          + logging_variant   = (known after apply)
+          + machine_type      = "e2-standard-2"
+          + metadata          = (known after apply)
+          + min_cpu_platform  = (known after apply)
+          + oauth_scopes      = [
+              + "https://www.googleapis.com/auth/cloud-platform",
+            ]
+          + preemptible       = false
+          + service_account   = (known after apply)
+          + spot              = false
+
+          + confidential_nodes (known after apply)
+
+          + gcfs_config (known after apply)
+
+          + kubelet_config (known after apply)
+
+          + shielded_instance_config {
+              + enable_integrity_monitoring = true
+              + enable_secure_boot          = true
+            }
+
+          + workload_metadata_config {
+              + mode = "GKE_METADATA"
+            }
+        }
+
+      + upgrade_settings (known after apply)
+    }
+
+  # module.airflow.google_project_iam_member.airflow_dataproc_editor will be created
+  + resource "google_project_iam_member" "airflow_dataproc_editor" {
+      + etag    = (known after apply)
+      + id      = (known after apply)
+      + member  = (known after apply)
+      + project = "tbd-2026l-325144"
+      + role    = "roles/dataproc.editor"
+    }
+
+  # module.airflow.google_project_iam_member.airflow_sa_user will be created
+  + resource "google_project_iam_member" "airflow_sa_user" {
+      + etag    = (known after apply)
+      + id      = (known after apply)
+      + member  = (known after apply)
+      + project = "tbd-2026l-325144"
+      + role    = "roles/iam.serviceAccountUser"
+    }
+
+  # module.airflow.google_project_iam_member.airflow_storage will be created
+  + resource "google_project_iam_member" "airflow_storage" {
+      + etag    = (known after apply)
+      + id      = (known after apply)
+      + member  = (known after apply)
+      + project = "tbd-2026l-325144"
+      + role    = "roles/storage.objectViewer"
+    }
+
+  # module.airflow.google_project_service.container will be created
+  + resource "google_project_service" "container" {
+      + disable_on_destroy = false
+      + id                 = (known after apply)
+      + project            = "tbd-2026l-325144"
+      + service            = "container.googleapis.com"
+    }
+
+  # module.airflow.google_service_account.airflow_sa will be created
+  + resource "google_service_account" "airflow_sa" {
+      + account_id = "tbd-2026l-325144-airflow-sa"
+      + disabled   = false
+      + email      = (known after apply)
+      + id         = (known after apply)
+      + member     = (known after apply)
+      + name       = (known after apply)
+      + project    = "tbd-2026l-325144"
+      + unique_id  = (known after apply)
+    }
+
+  # module.data-pipelines.google_storage_bucket.tbd-code-bucket will be created
+  + resource "google_storage_bucket" "tbd-code-bucket" {
+      + effective_labels            = (known after apply)
+      + force_destroy               = true
+      + id                          = (known after apply)
+      + location                    = "EUROPE-WEST1"
+      + name                        = "tbd-2026l-325144-code"
+      + project                     = "tbd-2026l-325144"
+      + project_number              = (known after apply)
+      + public_access_prevention    = "enforced"
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + terraform_labels            = (known after apply)
+      + uniform_bucket_level_access = false
+      + url                         = (known after apply)
+
+      + lifecycle_rule {
+          + action {
+              + type          = "AbortIncompleteMultipartUpload"
+                # (1 unchanged attribute hidden)
+            }
+          + condition {
+              + age                    = 7
+              + matches_prefix         = []
+              + matches_storage_class  = []
+              + matches_suffix         = []
+              + send_age_if_zero       = true
+              + with_state             = (known after apply)
+                # (3 unchanged attributes hidden)
+            }
+        }
+      + lifecycle_rule {
+          + action {
+              + storage_class = "NEARLINE"
+              + type          = "SetStorageClass"
+            }
+          + condition {
+              + age                    = 30
+              + matches_prefix         = []
+              + matches_storage_class  = []
+              + matches_suffix         = []
+              + send_age_if_zero       = true
+              + with_state             = (known after apply)
+                # (3 unchanged attributes hidden)
+            }
+        }
+
+      + soft_delete_policy (known after apply)
+
+      + versioning {
+          + enabled = true
+        }
+
+      + website (known after apply)
+    }
+
+  # module.data-pipelines.google_storage_bucket.tbd-data-bucket will be created
+  + resource "google_storage_bucket" "tbd-data-bucket" {
+      + effective_labels            = (known after apply)
+      + force_destroy               = true
+      + id                          = (known after apply)
+      + location                    = "EUROPE-WEST1"
+      + name                        = "tbd-2026l-325144-data"
+      + project                     = "tbd-2026l-325144"
+      + project_number              = (known after apply)
+      + public_access_prevention    = "enforced"
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + terraform_labels            = (known after apply)
+      + uniform_bucket_level_access = false
+      + url                         = (known after apply)
+
+      + lifecycle_rule {
+          + action {
+              + type          = "AbortIncompleteMultipartUpload"
+                # (1 unchanged attribute hidden)
+            }
+          + condition {
+              + age                    = 7
+              + matches_prefix         = []
+              + matches_storage_class  = []
+              + matches_suffix         = []
+              + send_age_if_zero       = true
+              + with_state             = (known after apply)
+                # (3 unchanged attributes hidden)
+            }
+        }
+      + lifecycle_rule {
+          + action {
+              + storage_class = "NEARLINE"
+              + type          = "SetStorageClass"
+            }
+          + condition {
+              + age                    = 30
+              + matches_prefix         = []
+              + matches_storage_class  = []
+              + matches_suffix         = []
+              + send_age_if_zero       = true
+              + with_state             = (known after apply)
+                # (3 unchanged attributes hidden)
+            }
+        }
+
+      + soft_delete_policy (known after apply)
+
+      + versioning {
+          + enabled = true
+        }
+
+      + website (known after apply)
+    }
+
+  # module.data-pipelines.google_storage_bucket_iam_member.tbd-code-bucket-iam-viewer will be created
+  + resource "google_storage_bucket_iam_member" "tbd-code-bucket-iam-viewer" {
+      + bucket = "tbd-2026l-325144-code"
+      + etag   = (known after apply)
+      + id     = (known after apply)
+      + member = (known after apply)
+      + role   = "roles/storage.objectViewer"
+    }
+
+  # module.data-pipelines.google_storage_bucket_iam_member.tbd-data-bucket-iam-editor will be created
+  + resource "google_storage_bucket_iam_member" "tbd-data-bucket-iam-editor" {
+      + bucket = "tbd-2026l-325144-data"
+      + etag   = (known after apply)
+      + id     = (known after apply)
+      + member = (known after apply)
+      + role   = "roles/storage.objectUser"
+    }
+
+  # module.data-pipelines.google_storage_bucket_object.job-code["spark-job.py"] will be created
+  + resource "google_storage_bucket_object" "job-code" {
+      + bucket         = "tbd-2026l-325144-code"
+      + content        = (sensitive value)
+      + content_type   = (known after apply)
+      + crc32c         = (known after apply)
+      + detect_md5hash = "different hash"
+      + generation     = (known after apply)
+      + id             = (known after apply)
+      + kms_key_name   = (known after apply)
+      + md5hash        = (known after apply)
+      + media_link     = (known after apply)
+      + name           = "spark-job.py"
+      + output_name    = (known after apply)
+      + self_link      = (known after apply)
+      + source         = "modules/data-pipeline/resources/spark-job.py"
+      + storage_class  = (known after apply)
+    }
+
+  # module.dataproc.google_dataproc_cluster.tbd-dataproc-cluster will be created
+  + resource "google_dataproc_cluster" "tbd-dataproc-cluster" {
+      + effective_labels              = (known after apply)
+      + graceful_decommission_timeout = "0s"
+      + id                            = (known after apply)
+      + name                          = "tbd-cluster"
+      + project                       = "tbd-2026l-325144"
+      + region                        = "europe-west1"
+      + terraform_labels              = (known after apply)
+
+      + cluster_config {
+          + bucket         = (known after apply)
+          + staging_bucket = "tbd-2026l-325144-dataproc-staging"
+          + temp_bucket    = "tbd-2026l-325144-dataproc-temp"
+
+          + auxiliary_node_groups (known after apply)
+
+          + dataproc_metric_config (known after apply)
+
+          + endpoint_config {
+              + enable_http_port_access = true
+              + http_ports              = (known after apply)
+            }
+
+          + gce_cluster_config {
+              + internal_ip_only       = true
+              + metadata               = {
+                  + "PIP_PACKAGES" = "pandas<2 mlflow==2.3.1 google-cloud-storage==2.9.0 jupyterlab==3.6.3 dbt-core==1.8.7 dbt-spark==1.8.0"
+                  + "vmDnsSetting" = "GlobalDefault"
+                }
+              + network                = (known after apply)
+              + service_account        = (known after apply)
+              + service_account_scopes = [
+                  + "https://www.googleapis.com/auth/cloud-platform",
+                ]
+              + subnetwork             = (known after apply)
+              + zone                   = (known after apply)
+
+              + node_group_affinity (known after apply)
+
+              + reservation_affinity (known after apply)
+
+              + shielded_instance_config (known after apply)
+            }
+
+          + initialization_action {
+              + script      = "gs://goog-dataproc-initialization-actions-europe-west1/python/pip-install.sh"
+              + timeout_sec = 600
+            }
+
+          + master_config {
+              + image_uri        = (known after apply)
+              + instance_names   = (known after apply)
+              + machine_type     = "e2-standard-2"
+              + min_cpu_platform = (known after apply)
+              + num_instances    = 1
+
+              + disk_config {
+                  + boot_disk_size_gb = 100
+                  + boot_disk_type    = "pd-standard"
+                  + num_local_ssds    = (known after apply)
+                }
+            }
+
+          + preemptible_worker_config (known after apply)
+
+          + software_config {
+              + image_version       = "2.2.69-ubuntu22"
+              + optional_components = [
+                  + "JUPYTER",
+                ]
+              + properties          = (known after apply)
+            }
+
+          + worker_config {
+              + image_uri         = (known after apply)
+              + instance_names    = (known after apply)
+              + machine_type      = "e2-standard-2"
+              + min_cpu_platform  = (known after apply)
+              + min_num_instances = (known after apply)
+              + num_instances     = 2
+
+              + disk_config {
+                  + boot_disk_size_gb = 100
+                  + boot_disk_type    = "pd-standard"
+                  + num_local_ssds    = (known after apply)
+                }
+            }
+        }
+
+      + virtual_cluster_config (known after apply)
+    }
+
+  # module.dataproc.google_project_iam_member.dataproc_bigquery_data_editor will be created
+  + resource "google_project_iam_member" "dataproc_bigquery_data_editor" {
+      + etag    = (known after apply)
+      + id      = (known after apply)
+      + member  = (known after apply)
+      + project = "tbd-2026l-325144"
+      + role    = "roles/bigquery.dataEditor"
+    }
+
+  # module.dataproc.google_project_iam_member.dataproc_bigquery_user will be created
+  + resource "google_project_iam_member" "dataproc_bigquery_user" {
+      + etag    = (known after apply)
+      + id      = (known after apply)
+      + member  = (known after apply)
+      + project = "tbd-2026l-325144"
+      + role    = "roles/bigquery.user"
+    }
+
+  # module.dataproc.google_project_iam_member.dataproc_worker will be created
+  + resource "google_project_iam_member" "dataproc_worker" {
+      + etag    = (known after apply)
+      + id      = (known after apply)
+      + member  = (known after apply)
+      + project = "tbd-2026l-325144"
+      + role    = "roles/dataproc.worker"
+    }
+
+  # module.dataproc.google_project_service.dataproc will be created
+  + resource "google_project_service" "dataproc" {
+      + disable_on_destroy = true
+      + id                 = (known after apply)
+      + project            = "tbd-2026l-325144"
+      + service            = "dataproc.googleapis.com"
+    }
+
+  # module.dataproc.google_service_account.dataproc_sa will be created
+  + resource "google_service_account" "dataproc_sa" {
+      + account_id   = "tbd-2026l-325144-dataproc-sa"
+      + disabled     = false
+      + display_name = "Dataproc Service Account"
+      + email        = (known after apply)
+      + id           = (known after apply)
+      + member       = (known after apply)
+      + name         = (known after apply)
+      + project      = "tbd-2026l-325144"
+      + unique_id    = (known after apply)
+    }
+
+  # module.dataproc.google_storage_bucket.dataproc_staging will be created
+  + resource "google_storage_bucket" "dataproc_staging" {
+      + effective_labels            = (known after apply)
+      + force_destroy               = true
+      + id                          = (known after apply)
+      + location                    = "EUROPE-WEST1"
+      + name                        = "tbd-2026l-325144-dataproc-staging"
+      + project                     = "tbd-2026l-325144"
+      + project_number              = (known after apply)
+      + public_access_prevention    = "enforced"
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + terraform_labels            = (known after apply)
+      + uniform_bucket_level_access = true
+      + url                         = (known after apply)
+
+      + lifecycle_rule {
+          + action {
+              + type          = "AbortIncompleteMultipartUpload"
+                # (1 unchanged attribute hidden)
+            }
+          + condition {
+              + age                    = 7
+              + matches_prefix         = []
+              + matches_storage_class  = []
+              + matches_suffix         = []
+              + send_age_if_zero       = true
+              + with_state             = (known after apply)
+                # (3 unchanged attributes hidden)
+            }
+        }
+      + lifecycle_rule {
+          + action {
+              + storage_class = "NEARLINE"
+              + type          = "SetStorageClass"
+            }
+          + condition {
+              + age                    = 30
+              + matches_prefix         = []
+              + matches_storage_class  = []
+              + matches_suffix         = []
+              + send_age_if_zero       = true
+              + with_state             = (known after apply)
+                # (3 unchanged attributes hidden)
+            }
+        }
+
+      + soft_delete_policy (known after apply)
+
+      + versioning {
+          + enabled = true
+        }
+
+      + website (known after apply)
+    }
+
+  # module.dataproc.google_storage_bucket.dataproc_temp will be created
+  + resource "google_storage_bucket" "dataproc_temp" {
+      + effective_labels            = (known after apply)
+      + force_destroy               = true
+      + id                          = (known after apply)
+      + location                    = "EUROPE-WEST1"
+      + name                        = "tbd-2026l-325144-dataproc-temp"
+      + project                     = "tbd-2026l-325144"
+      + project_number              = (known after apply)
+      + public_access_prevention    = "enforced"
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + terraform_labels            = (known after apply)
+      + uniform_bucket_level_access = true
+      + url                         = (known after apply)
+
+      + lifecycle_rule {
+          + action {
+              + type          = "AbortIncompleteMultipartUpload"
+                # (1 unchanged attribute hidden)
+            }
+          + condition {
+              + age                    = 7
+              + matches_prefix         = []
+              + matches_storage_class  = []
+              + matches_suffix         = []
+              + send_age_if_zero       = true
+              + with_state             = (known after apply)
+                # (3 unchanged attributes hidden)
+            }
+        }
+      + lifecycle_rule {
+          + action {
+              + storage_class = "NEARLINE"
+              + type          = "SetStorageClass"
+            }
+          + condition {
+              + age                    = 30
+              + matches_prefix         = []
+              + matches_storage_class  = []
+              + matches_suffix         = []
+              + send_age_if_zero       = true
+              + with_state             = (known after apply)
+                # (3 unchanged attributes hidden)
+            }
+        }
+
+      + soft_delete_policy (known after apply)
+
+      + versioning {
+          + enabled = true
+        }
+
+      + website (known after apply)
+    }
+
+  # module.dataproc.google_storage_bucket_iam_member.staging_bucket_iam will be created
+  + resource "google_storage_bucket_iam_member" "staging_bucket_iam" {
+      + bucket = "tbd-2026l-325144-dataproc-staging"
+      + etag   = (known after apply)
+      + id     = (known after apply)
+      + member = (known after apply)
+      + role   = "roles/storage.objectAdmin"
+    }
+
+  # module.dataproc.google_storage_bucket_iam_member.temp_bucket_iam will be created
+  + resource "google_storage_bucket_iam_member" "temp_bucket_iam" {
+      + bucket = "tbd-2026l-325144-dataproc-temp"
+      + etag   = (known after apply)
+      + id     = (known after apply)
+      + member = (known after apply)
+      + role   = "roles/storage.objectAdmin"
+    }
+
+  # module.gcr.google_artifact_registry_repository.registry will be created
+  + resource "google_artifact_registry_repository" "registry" {
+      + create_time      = (known after apply)
+      + description      = "TBD Docker repository"
+      + effective_labels = (known after apply)
+      + format           = "DOCKER"
+      + id               = (known after apply)
+      + location         = "europe"
+      + mode             = "STANDARD_REPOSITORY"
+      + name             = (known after apply)
+      + project          = "tbd-2026l-325144"
+      + repository_id    = "eu.gcr.io"
+      + terraform_labels = (known after apply)
+      + update_time      = (known after apply)
+
+      + docker_config {
+          + immutable_tags = false
+        }
+    }
+
+  # module.gcr.google_project_service.api["artifactregistry.googleapis.com"] will be created
+  + resource "google_project_service" "api" {
+      + disable_on_destroy = false
+      + id                 = (known after apply)
+      + project            = "tbd-2026l-325144"
+      + service            = "artifactregistry.googleapis.com"
+    }
+
+  # module.vpc.google_compute_firewall.default-internal-allow-all will be created
+  + resource "google_compute_firewall" "default-internal-allow-all" {
+      + creation_timestamp = (known after apply)
+      + destination_ranges = (known after apply)
+      + direction          = "INGRESS"
+      + enable_logging     = (known after apply)
+      + id                 = (known after apply)
+      + name               = "default-internal-allow-all"
+      + network            = (known after apply)
+      + priority           = 65534
+      + project            = "tbd-2026l-325144"
+      + self_link          = (known after apply)
+      + source_ranges      = [
+          + "10.10.10.0/24",
+        ]
+
+      + allow {
+          + ports    = []
+          + protocol = "all"
+        }
+    }
+
+  # module.vpc.google_compute_firewall.fw-allow-ingress-from-iap will be created
+  + resource "google_compute_firewall" "fw-allow-ingress-from-iap" {
+      + creation_timestamp = (known after apply)
+      + destination_ranges = (known after apply)
+      + direction          = "INGRESS"
+      + enable_logging     = (known after apply)
+      + id                 = (known after apply)
+      + name               = "fw-allow-ingress-iap"
+      + network            = (known after apply)
+      + priority           = 1000
+      + project            = "tbd-2026l-325144"
+      + self_link          = (known after apply)
+      + source_ranges      = [
+          + "35.235.240.0/20",
+        ]
+
+      + allow {
+          + ports    = [
+              + "22",
+              + "8443",
+              + "443",
+              + "80",
+              + "8000",
+            ]
+          + protocol = "tcp"
+        }
+    }
+
+  # module.vpc.google_compute_router_nat.nat will be created
+  + resource "google_compute_router_nat" "nat" {
+      + auto_network_tier                   = (known after apply)
+      + enable_dynamic_port_allocation      = (known after apply)
+      + enable_endpoint_independent_mapping = (known after apply)
+      + endpoint_types                      = (known after apply)
+      + icmp_idle_timeout_sec               = 30
+      + id                                  = (known after apply)
+      + min_ports_per_vm                    = (known after apply)
+      + name                                = "tbd-nat"
+      + nat_ip_allocate_option              = "AUTO_ONLY"
+      + project                             = "tbd-2026l-325144"
+      + region                              = "europe-west1"
+      + router                              = "nat-router"
+      + source_subnetwork_ip_ranges_to_nat  = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+      + tcp_established_idle_timeout_sec    = 1200
+      + tcp_time_wait_timeout_sec           = 120
+      + tcp_transitory_idle_timeout_sec     = 30
+      + udp_idle_timeout_sec                = 30
+
+      + log_config {
+          + enable = true
+          + filter = "ERRORS_ONLY"
+        }
+    }
+
+  # module.vpc.module.cloud-router.google_compute_router.router will be created
+  + resource "google_compute_router" "router" {
+      + creation_timestamp = (known after apply)
+      + id                 = (known after apply)
+      + name               = "nat-router"
+      + network            = (known after apply)
+      + project            = "tbd-2026l-325144"
+      + region             = "europe-west1"
+      + self_link          = (known after apply)
+    }
+
+  # module.vpc.module.cloud-router.google_compute_router_nat.nats["nat-gateway"] will be created
+  + resource "google_compute_router_nat" "nats" {
+      + auto_network_tier                   = (known after apply)
+      + enable_dynamic_port_allocation      = (known after apply)
+      + enable_endpoint_independent_mapping = (known after apply)
+      + endpoint_types                      = (known after apply)
+      + icmp_idle_timeout_sec               = 30
+      + id                                  = (known after apply)
+      + min_ports_per_vm                    = (known after apply)
+      + name                                = "nat-gateway"
+      + nat_ip_allocate_option              = "AUTO_ONLY"
+      + project                             = "tbd-2026l-325144"
+      + region                              = "europe-west1"
+      + router                              = "nat-router"
+      + source_subnetwork_ip_ranges_to_nat  = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+      + tcp_established_idle_timeout_sec    = 1200
+      + tcp_time_wait_timeout_sec           = 120
+      + tcp_transitory_idle_timeout_sec     = 30
+      + udp_idle_timeout_sec                = 30
+
+      + log_config {
+          + enable = true
+          + filter = "ALL"
+        }
+    }
+
+  # module.vpc.module.vpc.module.routes.google_compute_route.route["egress-internet"] will be created
+  + resource "google_compute_route" "route" {
+      + description            = "route through IGW to access internet"
+      + dest_range             = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + name                   = "egress-internet"
+      + network                = "main-vpc"
+      + next_hop_gateway       = "default-internet-gateway"
+      + next_hop_instance_zone = (known after apply)
+      + next_hop_ip            = (known after apply)
+      + next_hop_network       = (known after apply)
+      + priority               = 1000
+      + project                = "tbd-2026l-325144"
+      + self_link              = (known after apply)
+    }
+
+  # module.vpc.module.vpc.module.subnets.google_compute_subnetwork.subnetwork["europe-west1/subnet-01"] will be created
+  + resource "google_compute_subnetwork" "subnetwork" {
+      + creation_timestamp         = (known after apply)
+      + external_ipv6_prefix       = (known after apply)
+      + fingerprint                = (known after apply)
+      + gateway_address            = (known after apply)
+      + id                         = (known after apply)
+      + internal_ipv6_prefix       = (known after apply)
+      + ip_cidr_range              = "10.10.10.0/24"
+      + ipv6_cidr_range            = (known after apply)
+      + name                       = "subnet-01"
+      + network                    = "main-vpc"
+      + private_ip_google_access   = true
+      + private_ipv6_google_access = (known after apply)
+      + project                    = "tbd-2026l-325144"
+      + purpose                    = (known after apply)
+      + region                     = "europe-west1"
+      + secondary_ip_range         = (known after apply)
+      + self_link                  = (known after apply)
+      + stack_type                 = (known after apply)
+    }
+
+  # module.vpc.module.vpc.module.vpc.google_compute_network.network will be created
+  + resource "google_compute_network" "network" {
+      + auto_create_subnetworks                   = false
+      + delete_default_routes_on_create           = false
+      + enable_ula_internal_ipv6                  = false
+      + gateway_ipv4                              = (known after apply)
+      + id                                        = (known after apply)
+      + internal_ipv6_range                       = (known after apply)
+      + mtu                                       = 0
+      + name                                      = "main-vpc"
+      + network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL"
+      + numeric_id                                = (known after apply)
+      + project                                   = "tbd-2026l-325144"
+      + routing_mode                              = "GLOBAL"
+      + self_link                                 = (known after apply)
+        # (1 unchanged attribute hidden)
+    }
+
+Plan: 42 to add, 0 to change, 0 to destroy.
+
+Warning: Value for undeclared variable
+
+The root module does not declare a variable named "iac_service_account" but a value was found in file "env/project.tfvars". If you meant to use this value, add a "variable" block to the configuration.
+
+To silence these warnings, use TF_VAR_... environment variables to provide certain "global" settings to all configurations in your organization. To reduce the verbosity of these warnings, use the -compact-warnings option.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

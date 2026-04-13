@@ -3,6 +3,7 @@ resource "google_project_service" "dataproc" {
   provider           = google
   service            = "dataproc.googleapis.com"
   disable_on_destroy = true
+  project            = var.project_name
 }
 
 resource "google_service_account" "dataproc_sa" {
@@ -167,7 +168,15 @@ resource "google_dataproc_cluster" "tbd-dataproc-cluster" {
         boot_disk_type    = "pd-standard"
         boot_disk_size_gb = 100
       }
-
     }
+
+    preemptible_worker_config {
+      num_instances = 2
+      disk_config {
+        boot_disk_type    = "pd-standard"
+        boot_disk_size_gb = 100
+      }
+    }
+
   }
 }
