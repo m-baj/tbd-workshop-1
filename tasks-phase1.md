@@ -110,15 +110,40 @@ gcloud compute ssh tbd-cluster-m \
     1. Description of the components of service accounts
     2. List of buckets for disposal
 
-    ***place your diagram here***
+    ![img.png](doc/figures/diagram.png)
 
 8. Create a new PR and add costs by entering the expected consumption into Infracost
 For all the resources of type: `google_artifact_registry_repository`, `google_storage_bucket`
 create a sample usage profiles and add it to the Infracost task in CI/CD pipeline. Usage file [example](https://github.com/infracost/infracost/blob/master/infracost-usage-example.yml)
 
-   ***place the expected consumption you entered here***
+   ```yaml
+   version: 0.1
+    resource_usage:
+    module.dataproc.google_storage_bucket.dataproc_staging:
+        storage_gb: 50
+        monthly_class_a_operations: 5000
+        monthly_class_b_operations: 20000
 
-   ***place the screenshot from infracost output here***
+    module.dataproc.google_storage_bucket.dataproc_temp:
+        storage_gb: 100
+        monthly_class_a_operations: 2000
+        monthly_class_b_operations: 10000
+
+    module.data-pipelines.google_storage_bucket.tbd-code-bucket:
+        storage_gb: 1
+        monthly_class_a_operations: 100
+        monthly_class_b_operations: 500
+
+    module.data-pipelines.google_storage_bucket.tbd-data-bucket:
+        storage_gb: 500
+        monthly_class_a_operations: 10000
+        monthly_class_b_operations: 100000
+
+    module.gcr.google_artifact_registry_repository.registry:
+        storage_gb: 20
+   ```
+
+   ![img.png](doc/figures/infracost-out.png)
 
 9. Find and correct the error in spark-job.py
 
@@ -129,8 +154,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     
     Then check the external IP (AIRFLOW_EXTERNAL_IP) of the webserver service:
     kubectl get svc -n airflow airflow-webserver                                                                                                                                                                 
-                                              
-                                                                                                                                                                                                               
+                                                                                                                                                                                                                                     
     ▎ Note: If EXTERNAL-IP shows <pending>, wait a moment and retry — LoadBalancer IP allocation may take 1-2 minutes.  
 
     DAG files are synced automatically from your GitHub repo via git-sync sidecar.
@@ -138,11 +162,28 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
     a) In the Airflow UI (http://AIRFLOW_EXTERNAL_IP:8080, login: admin/admin), find the `dataproc_job` DAG, unpause it and trigger it manually.
 
-    ***place a screenshot of the DAG in the Airflow UI***
+    ![img.png](doc/figures/airflow-dags.png)
+
 
     b) The DAG will fail. Examine the task logs in the Airflow UI to find the root cause.
 
-    ***paste the relevant error message from the Airflow task log***
+    ```
+    File "/home/airflow/.local/lib/python3.12/site-packages/google/api_core/grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+    google.api_core.exceptions.PermissionDenied: 403 Permission 'dataproc.clusters.use' denied on resource '//dataproc.googleapis.com/projects/tbd-2026l-325144/regions/europe-west1/clusters/tbd-cluster' (or it may not exist). [reason: "IAM_PERMISSION_DENIED"
+    domain: "dataproc.googleapis.com"
+    metadata {
+    key: "resource"
+    value: "projects/tbd-2026l-325144/regions/europe-west1/clusters/tbd-cluster"
+    }
+    metadata {
+    key: "permission"
+    value: "dataproc.clusters.use"
+    }
+    ]
+    [2026-04-13, 10:45:11 UTC] {taskinstance.py:1226} INFO - Marking task as FAILED. dag_id=dataproc_job, task_id=pyspark_task, run_id=scheduled__2026-04-12T00:00:00+00:00, execution_date=20260412T000000, start_date=20260413T104509, end_date=20260413T104511
+    [2026-04-13, 10:45:11 UTC] {taskinstance.py:341} ▶ Post task execution logs
+   ```
 
     ***describe what the error is and how you found it***
 
@@ -152,14 +193,15 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     ```
     Then trigger the DAG again from the Airflow UI.
 
-    ***paste the link to the fixed file***
+    link do pliku: [link](https://ff623546bb386ca9fc63b57f4749166cc34ac064eaeb493c59bceb0-apidata.googleusercontent.com/download/storage/v1/b/tbd-2026l-325144-code/o/spark-job.py?jk=AXH35DGoc2iDEWzurqdFm6vXiYAJTst_0dp-2hVQH01AMDidND41ikXpCVikvMfF762kqRTZ9ENouHJngogJniprxaRJIiS2QjeMWMHoglk2EW0zaJJgPKQ9rD4wYqLjD0nbzFjyUFtCXFvA8GrAsnWbUD_bkN0l7hcpf2-t-A6_APHszIQerbk4pj2ZqU8ON7c4K_-S6ThNRvCX7AAeytcQdnEWYgKVr5kOvFSeSeigH8DRA7aTpdqnaWd1T61mvKRjhMUtNKeNIy8IEkW8G6lLcvD8E03OzNN4_OlS4NeIgE5_6oBDPOaLDcXOsTlrnPg7p2_9A7m915VLZ_7m6Ez44JZADYwDOEClqjYSXtOOBCQn7pUOCly5Es8wVArQJfHM6K1FoKA1w0ofSjQOCqY37AOnDg6bVl1PpiDIZ7yQe6tS3EsA07CgzIx5Hg-1M7bOtZoOqe7SXGEfJdfytur5SrCdTWCYL4aT9rw0H6Lx7G6AioxaPndSH_ohVRbQTjTMqaPeb-oGnMQrjiaosCZnzbgQP219Q2jqs6zmmUE8ChekAe0JoNnZ0kQ6iORP3Cs_jB8FGXw24EqcS8qUGvsA9OVp2wHUZ3sZqxAHB90yKZfPRO3Poqs9MoKDlnUDKAvJrAxoSPeW7FC7c5DWvTgBhGy1DKTvCH84XjNecxD4ciXr-uWrDCGsVZMW-LqCDRWGgw3FwhbAwxZ_x0gmU2H-00QxJNVvN-CD9PXIaJ1fppMUnZskGnvms9gaVg1W_mnbqAUZJInaxjcTfG_Vg0x58mAcBuJ-Sx05oAXGF_eMSM7s3-E6bxD_6hTbtipIsYqSXnzY_0Ffh4tdfLc9oFWqgdLkPfry6UZbBER3_tzp85qWvFIpdBBVXuyKqIce8KPY8KFxcxzu61PfwPKb5FAwRltL3F0qtF9Brp1Ki8XLyW1iPGxRjL8ytR22oeb9kkc2sQE4VprVXXQnrkI31hDgKZFPIuStlzj7sGIQt3EEmq5bRsIWHb6QUa-qT1n37zNI4gF1RLxJQaYqVehcOX3A1B5hpOML3OzOFJ8ZMkDxF72qnM6vEarbolwQDA6_v0wBT5ZB7OdChnvL7vcS9NGs7dvkMO0n_zDn7F66EP1rJ1SKYkt7sO3GZfVeqlWxHHrjpGLvMJhBLRv4zlCPHX8R8ZAZXOTTYlXIZt9xSLtgxIEyrtaLX7Ln7yqwy_wqatZQ6gx6w-aAJaGV0qQAAg5-OtqqASlHkXi_ojLtIw&isca=1)
 
     d) Verify the DAG completes successfully and check that ORC files were written to the data bucket:
     ```bash
     gsutil ls gs://PROJECT_NAME-data/data/shakespeare/
     ```
 
-    ***place a screenshot of the successful DAG run in Airflow UI***
+    ![img.png](doc/figures/airflowjob.png)
+    ![img.png](doc/figures/jobsuc.png)
 
 11. Create a BigQuery dataset and an external table using SQL
 
@@ -170,13 +212,36 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     bq mk --dataset --location=europe-west1 shakespeare
     ```
 
-    ***place the SQL code and query output here***
+    ```sql
+    CREATE OR REPLACE EXTERNAL TABLE `526956755058.shakespeare.word_counts`
+    OPTIONS (
+        format = 'ORC',
+        uris = ['gs://tbd-2026l-325144-data/data/shakespeare/*.orc']
+    );
+    ```
 
     ***why does ORC not require a table schema?***
 
+    ORC (Optimized Row Columnar) nie wymaga ręcznego definiowania schematu tabeli, ponieważ jest formatem samopisującym się.
+
+    Oznacza to, że plik ORC zawiera wewnątrz siebie nie tylko same dane, ale również pełne metadane dotyczące ich struktury. Informacje te są przechowywane w tzw. stopce pliku i obejmują:
+     - nazwy wszystkich kolumn,
+     - typy danych przypisane do tych kolumn (np. integer, string, boolean),
+     - statystyki dotyczące danych (np. wartości min/max), co dodatkowo przyspiesza zapytania.
+
 12. Add support for preemptible/spot instances in a Dataproc cluster
 
-    ***place the link to the modified file and inserted terraform code***
+    - [modules/dataproc/main.tf](modules/dataproc/main.tf)
+    
+    ```json
+     preemptible_worker_config {
+      num_instances = 2
+      disk_config {
+        boot_disk_type    = "pd-standard"
+        boot_disk_size_gb = 100
+      }
+    }
+    ```
 
 13. Triggered Terraform Destroy on Schedule or After PR Merge. Goal: make sure we never forget to clean up resources and burn money.
 
@@ -196,7 +261,59 @@ Steps:
 Hint: use the existing `.github/workflows/destroy.yml` as a starting point.
 
 ***paste workflow YAML here***
+```yaml
+name: Auto-destroy Infrastructure
+
+on:
+  schedule:
+    - cron: '0 20 * * *'
+  pull_request:
+    types: [closed]
+    branches: [master]
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  auto-destroy:
+    if: |
+      github.event_name == 'schedule' || 
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true && contains(github.event.pull_request.title, '[CLEANUP]'))
+    
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      pull-requests: write
+      issues: write
+
+    steps:
+    - uses: 'actions/checkout@v3'
+    
+    - uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.11.0
+
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        token_format: 'access_token'
+        workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER_NAME }}
+        service_account: ${{ secrets.GCP_WORKLOAD_IDENTITY_SA_EMAIL }}
+
+    - name: Terraform Init
+      id: init
+      run: terraform init -backend-config=env/backend.tfvars
+
+    - name: Terraform Destroy
+      id: destroy
+      run: terraform destroy -no-color -var-file env/project.tfvars -auto-approve
+```
 
 ***paste screenshot/log snippet confirming the auto-destroy ran***
 
 ***write one sentence why scheduling cleanup helps in this workshop***
+
+Harmonogram zapobiega niekontrolowanemu naliczaniu opłat za zasoby, o których można zapomnieć po zakończeniu sesji pracy i łątwo wyczerpać budżet warsztatowy.

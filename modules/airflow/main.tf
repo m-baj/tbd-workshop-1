@@ -37,6 +37,18 @@ resource "google_project_iam_member" "airflow_storage" {
   member  = "serviceAccount:${google_service_account.airflow_sa.email}"
 }
 
+resource "google_service_account_iam_member" "airflow_workload_identity_binding" {
+  service_account_id = google_service_account.airflow_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_name}.svc.id.goog[airflow/airflow-webserver]"
+}
+
+resource "google_service_account_iam_member" "airflow_scheduler_binding" {
+  service_account_id = google_service_account.airflow_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_name}.svc.id.goog[airflow/airflow-scheduler]"
+}
+
 resource "google_container_cluster" "airflow" {
   #checkov:skip=CKV_GCP_91: "Workshop cluster — CSEK not needed"
   #checkov:skip=CKV_GCP_24: "Workshop cluster — PodSecurityPolicy not needed"
