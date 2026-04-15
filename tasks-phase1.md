@@ -187,6 +187,15 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
     ***describe what the error is and how you found it***
 
+   How the error was found:
+   1. Triggered the DAG in Airflow UI
+   2. Observed that the DAG failed
+   3. Checked task logs in Airflow UI
+   4. PermissionDenied: 403 Permission 'dataproc.clusters.use' denied
+
+   What was the error?
+   The Airflow environment does not have the IAM role required to interact with Dataproc clusters.
+
     c) Fix the error in `modules/data-pipeline/resources/spark-job.py` and re-upload the file to GCS:
     ```bash
     gsutil cp modules/data-pipeline/resources/spark-job.py gs://PROJECT_NAME-code/spark-job.py
