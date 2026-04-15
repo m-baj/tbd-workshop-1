@@ -110,7 +110,7 @@ gcloud compute ssh tbd-cluster-m \
     1. Description of the components of service accounts
     2. List of buckets for disposal
 
-    ![img.png](doc/figures/diagram.png)
+    ![img.png](doc/figures/diagram_tbd_1.drawio.png)
 
 8. Create a new PR and add costs by entering the expected consumption into Infracost
 For all the resources of type: `google_artifact_registry_repository`, `google_storage_bucket`
