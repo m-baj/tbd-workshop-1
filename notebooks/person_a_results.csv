@@ -1,0 +1,17 @@
+library_engine,mode,query_name,data_format,layout,rows,median_time_s,peak_memory_mb,input_size_mb,result_check,notes
+Pandas,default,Q1_selective_agg,parquet,default,200000,0.3074,3101.49,,"shape: (7, 5)",
+Pandas,default,Q2_join_agg,parquet,default,200000,0.3197,3332.45,,"shape: (12, 8)",
+Pandas,default,Q3_high_card_top_k,parquet,default,200000,0.2532,3386.74,,"shape: (100, 6)",
+Pandas,pyarrow,Q1_selective_agg,parquet,default,200000,0.1037,3396.25,,"shape: (7, 5)",
+Pandas,pyarrow,Q2_join_agg,parquet,default,200000,0.2383,3425.35,,"shape: (12, 8)",
+Pandas,pyarrow,Q3_high_card_top_k,parquet,default,200000,0.1435,3461.7,,"shape: (100, 6)",
+DuckDB,sql,Q1_selective_agg,parquet,default,200000,0.0551,3472.94,,"shape: (7, 5)",
+DuckDB,sql,Q2_join_agg,parquet,default,200000,0.106,3514.92,,"shape: (12, 8)",
+DuckDB,sql,Q3_high_card_top_k,parquet,default,200000,0.1993,3549.92,,"shape: (100, 6)",
+DuckDB,sql,Q1_selective_agg,parquet,default,200000,0.0297,3527.47,,"shape: (7, 4)",
+DuckDB,sql,Q1_selective_agg,parquet,optimized_by_date,200000,0.0249,3543.41,,"shape: (7, 4)",
+DuckDB,sql,Q1_selective_agg,csv,flat,200000,0.3089,3561.35,,"shape: (7, 4)",
+DuckDB,sql,Q3_high_card_top_k,parquet,default,200000,0.2732,3491.28,,"shape: (100, 6)",threads=1
+DuckDB,sql,Q3_high_card_top_k,parquet,default,200000,0.1281,3499.7,,"shape: (100, 6)",threads=4
+DuckDB,sql,Q3_high_card_top_k,parquet,default,200000,0.0835,3544.23,,"shape: (100, 6)",threads=8
+DuckDB,sql,Q3_high_card_top_k,parquet,default,200000,0.0975,3565.33,,"shape: (100, 6)",threads=20
