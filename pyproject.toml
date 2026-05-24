@@ -9,6 +9,7 @@ dependencies = [
     "deltalake>=1.5.1",
     "duckdb>=1.5.2",
     "faker>=40.15.0",
+    "ipykernel>=7.2.0",
     "matplotlib>=3.10.9",
     "memory-profiler>=0.61.0",
     "pandas>=3.0.2",
