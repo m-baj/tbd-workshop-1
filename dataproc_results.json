@@ -1,0 +1,35 @@
+[
+  {
+    "library_engine": "PySpark",
+    "mode": "dataproc",
+    "query_name": "Q1_selective_agg",
+    "data_format": "parquet",
+    "layout": "default",
+    "median_time_s": 5.3122,
+    "result_rows": 7,
+    "peak_memory_mb": null,
+    "notes": "Dataproc cluster \u2014 2 default parallelism"
+  },
+  {
+    "library_engine": "PySpark",
+    "mode": "dataproc",
+    "query_name": "Q2_join_agg",
+    "data_format": "parquet",
+    "layout": "default",
+    "median_time_s": 7.1799,
+    "result_rows": 12,
+    "peak_memory_mb": null,
+    "notes": "Dataproc cluster \u2014 2 default parallelism"
+  },
+  {
+    "library_engine": "PySpark",
+    "mode": "dataproc",
+    "query_name": "Q3_high_card_top_k",
+    "data_format": "parquet",
+    "layout": "default",
+    "median_time_s": 3.531,
+    "result_rows": 100,
+    "peak_memory_mb": null,
+    "notes": "Dataproc cluster \u2014 2 default parallelism"
+  }
+]

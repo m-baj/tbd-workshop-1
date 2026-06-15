@@ -1,0 +1,32 @@
+library_engine,mode,query_name,data_format,layout,rows,median_time_s,peak_memory_mb,input_size_mb,result_check,notes
+Pandas,default,Q1_selective_agg,parquet,default,2000000,0.4941,8085.59,,"shape: (7, 5)",
+Pandas,default,Q2_join_agg,parquet,default,2000000,0.7531,9195.01,,"shape: (12, 8)",
+Pandas,default,Q3_high_card_top_k,parquet,default,2000000,0.553,9476.23,,"shape: (100, 6)",
+Pandas,pyarrow,Q1_selective_agg,parquet,default,2000000,0.0882,9354.41,,"shape: (7, 5)",
+Pandas,pyarrow,Q2_join_agg,parquet,default,2000000,0.3975,9470.5,,"shape: (12, 8)",
+Pandas,pyarrow,Q3_high_card_top_k,parquet,default,2000000,0.1684,9369.34,,"shape: (100, 6)",
+Polars,eager,Q1_selective_agg,parquet,default,2000000,0.0298,9660.63,,"shape: (7, 5)",
+Polars,eager,Q2_join_agg,parquet,default,2000000,0.3063,10509.68,,"shape: (12, 8)",
+Polars,eager,Q3_high_card_top_k,parquet,default,2000000,0.0688,11878.42,,"shape: (100, 6)",
+Polars,lazy,Q1_selective_agg,parquet,default,2000000,0.0124,12018.23,,"shape: (7, 5)",
+Polars,lazy,Q2_join_agg,parquet,default,2000000,0.0382,12029.79,,"shape: (12, 8)",
+Polars,lazy,Q3_high_card_top_k,parquet,default,2000000,0.0285,12054.07,,"shape: (100, 6)",
+Polars,streaming,Q1_selective_agg,parquet,default,2000000,0.0121,12063.83,,"shape: (7, 5)",
+Polars,streaming,Q2_join_agg,parquet,default,2000000,0.0364,12070.16,,"shape: (12, 8)",
+Polars,streaming,Q3_high_card_top_k,parquet,default,2000000,0.0268,12056.47,,"shape: (100, 6)",
+DuckDB,sql,Q1_selective_agg,parquet,default,2000000,0.0096,12238.07,,"shape: (7, 5)",
+DuckDB,sql,Q2_join_agg,parquet,default,2000000,0.0344,12336.0,,"shape: (12, 8)",
+DuckDB,sql,Q3_high_card_top_k,parquet,default,2000000,0.0248,12598.52,,"shape: (100, 6)",
+PySpark,local[*],Q1_selective_agg,parquet,default,2000000,0.3348,0.0,43.95,"shape: (7, 5)",memory_profiler skips JVM heap; driver RSS delta used
+PySpark,local[*],Q2_join_agg,parquet,default,2000000,0.4235,0.0,44.5,"shape: (12, 8)",memory_profiler skips JVM heap; driver RSS delta used
+PySpark,local[*],Q3_high_card_top_k,parquet,default,2000000,0.2514,0.0,43.95,"shape: (100, 6)",memory_profiler skips JVM heap; driver RSS delta used
+DuckDB,sql,Q1_selective_agg,parquet,default,2000000,0.0106,14610.81,43.95,"shape: (7, 5)",
+DuckDB,sql,Q1_selective_agg,parquet,optimized_by_date,2000000,0.0084,14602.35,24.66,"shape: (7, 5)",
+DuckDB,sql,Q1_selective_agg,csv,flat,2000000,0.1077,14822.88,136.98,"shape: (7, 5)",
+DuckDB,sql,Q3_high_card_top_k,parquet,default,2000000,0.1422,16093.16,,"shape: (100, 6)",threads=1
+DuckDB,sql,Q3_high_card_top_k,parquet,default,2000000,0.0734,16253.56,,"shape: (100, 6)",threads=4
+DuckDB,sql,Q3_high_card_top_k,parquet,default,2000000,0.0406,16259.2,,"shape: (100, 6)",threads=8
+DuckDB,sql,Q3_high_card_top_k,parquet,default,2000000,0.0264,16259.29,,"shape: (100, 6)",threads=20
+PySpark,local[1],Q3_high_card_top_k,parquet,default,2000000,0.6404,0.0,43.95,"shape: (100, 6)",scalability test — local[1]
+PySpark,local[2],Q3_high_card_top_k,parquet,default,2000000,0.4475,0.0,43.95,"shape: (100, 6)",scalability test — local[2]
+PySpark,local[*],Q3_high_card_top_k,parquet,default,2000000,0.2818,0.0,43.95,"shape: (100, 6)",scalability test — local[*]
