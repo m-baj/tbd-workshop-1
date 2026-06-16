@@ -1,12 +1,3 @@
-"""
-PySpark benchmark job for Dataproc — Task 5.
-Submit with:
-  gcloud dataproc jobs submit pyspark dataproc_benchmark.py \
-    --cluster=tbd-cluster \
-    --region=europe-west1 \
-    -- gs://tbd-2026l-325144-data/phase2/group_03/small/
-"""
-
 import gc
 import json
 import logging
@@ -130,7 +121,13 @@ for name, func in [("Q1_selective_agg", q1), ("Q2_join_agg", q2), ("Q3_high_card
 results_json = json.dumps(results, indent=2)
 log.info("ALL RESULTS:\n" + results_json)
 
-results_json = json.dumps(results, indent=2)
+# Delete any previous output directory — saveAsTextFile has no overwrite mode
+hadoop_conf = spark.sparkContext._jsc.hadoopConfiguration()
+out_path = spark.sparkContext._jvm.org.apache.hadoop.fs.Path(RESULTS_OUT)
+fs = out_path.getFileSystem(hadoop_conf)
+if fs.exists(out_path):
+    fs.delete(out_path, True)
+
 spark.sparkContext.parallelize([results_json], 1) \
     .saveAsTextFile(RESULTS_OUT)
 log.info(f"Results saved to {RESULTS_OUT}")
